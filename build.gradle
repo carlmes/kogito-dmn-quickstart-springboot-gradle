@@ -1,0 +1,83 @@
+plugins {
+  id 'java'
+	id 'org.springframework.boot' version "$springBootVersion"
+	//id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	//id 'jacoco'
+}
+
+group = 'com.highmark'
+version '1.0.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+repositories {
+  /*maven { 
+    credentials(PasswordCredentials)
+    name "registry"
+    url "https://highmarkhealth.jfrog.io/artifactory/hmk-vrt-maven/"
+  }*/
+  mavenCentral()
+  mavenLocal()
+}
+
+
+allprojects {
+  //apply plugin: 'jacoco'
+
+  dependencies {
+      //starter-test has junit and mockito within
+      testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+      testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+      //testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1' 
+      testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+    
+      //needed if running jdk 11+
+      //implementation "javax.validation:validation-api:2.0.0.Final"
+  }
+}
+
+
+dependencies {
+  implementation "org.springframework.boot:spring-boot-starter-log4j2:${springBootVersion}"
+  implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"  
+
+  // See: https://docs.kogito.kie.org/latest/html_single/#ref-kogito-spring-boot-starter_kogito-creating-running
+  implementation "org.kie.kogito:kogito-decisions-spring-boot-starter:${kogitoVersion}"
+
+  implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+}
+
+configurations {
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+/*
+test {
+	useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+	reports {
+		xml.required = true
+		html.required = true
+		csv.required = true
+		}
+    finalizedBy jacocoTestCoverageVerification
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				counter = 'LINE'
+				minimum = 0.85
+			}
+		}
+	}
+}*/
