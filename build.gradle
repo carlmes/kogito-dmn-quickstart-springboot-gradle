@@ -30,9 +30,6 @@ allprojects {
   dependencies {
       //starter-test has junit and mockito within
       testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
-      testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
-      //testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1' 
-      testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
     
       //needed if running jdk 11+
       //implementation "javax.validation:validation-api:2.0.0.Final"
@@ -41,13 +38,17 @@ allprojects {
 
 
 dependencies {
+  implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
   implementation "org.springframework.boot:spring-boot-starter-log4j2:${springBootVersion}"
   implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"  
 
   // See: https://docs.kogito.kie.org/latest/html_single/#ref-kogito-spring-boot-starter_kogito-creating-running
   implementation "org.kie.kogito:kogito-decisions-spring-boot-starter:${kogitoVersion}"
 
-  implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+  testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+  //testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1' 
+  testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+  testImplementation "org.kie.kogito:kogito-scenario-simulation:${kogitoVersion}"
 }
 
 configurations {
